@@ -41,10 +41,21 @@ end
     IsingModel(L, β; J=1.0, seed=nothing) -> IsingModel
 
 Convenience constructor: create a randomly initialised L×L model.
-Precomputes exp(-β*dE) for the two possible positive ΔE values (4J and 8J).
 """
 function IsingModel(L::Int, β::Float64; J::Float64=1.0, seed=nothing)
     return IsingModel(init_spins(L; seed=seed), β, J,
+                      exp(-β * 4.0*J),
+                      exp(-β * 8.0*J))
+end
+
+"""
+    IsingModel(spins, β; J=1.0) -> IsingModel
+
+Construct a model from an existing spins matrix.
+Useful for testing with known configurations.
+"""
+function IsingModel(spins::Matrix{Int8}, β::Float64; J::Float64=1.0)
+    return IsingModel(spins, β, J,
                       exp(-β * 4.0*J),
                       exp(-β * 8.0*J))
 end
@@ -111,4 +122,16 @@ function metropolis_sweep!(model::IsingModel)
     for _ in 1:L*L
         metropolis_step!(model)
     end
+end
+
+"""
+    run_simulation!(model, n_sweeps) -> model
+
+Run `n_sweeps` Monte Carlo sweeps on `model` in place.
+"""
+function run_simulation!(model::IsingModel, n_sweeps::Int)
+    for _ in 1:n_sweeps
+        metropolis_sweep!(model)
+    end
+    return model
 end
