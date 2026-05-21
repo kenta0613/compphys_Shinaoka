@@ -1,5 +1,7 @@
 module compphys_Shinaoka
 
-greet() = print("Hello World!")
+include("ising.jl")
+
+export init_spins, magnetization, energy
 
 end # module compphys_Shinaoka
