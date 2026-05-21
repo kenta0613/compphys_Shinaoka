@@ -1,0 +1,33 @@
+# Julia
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+/Manifest.toml
+
+# Julia package artifacts
+deps/deps.jl
+deps/build.log
+
+# Julia compiled cache
+*.ji
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor
+.vscode/
+*.swp
+*.swo
+*~
+
+# Build / output
+/build/
+/docs/build/
+*.gif
+*.png
+*.pdf
